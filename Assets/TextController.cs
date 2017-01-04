@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+
 public class TextController : MonoBehaviour {
 	public Text text;
-	private enum States {treehouse, 
+	private enum States {start,treehouse, 
 			bushBreakfast, feelingLazy, gotoStores, toLazyForStores, push, pushLazy, ignore, saySomething, backAtTheLodge,
 			kitchenE, elephantMovesBack, watermelonThrow, elephantHelp, kitchenHelp	};
 	private States myState;
 	// Use this for initialization
 	void Start () 
 	{
-		myState = States.treehouse;
+		myState = States.start;
 	}
 	// Update is called once per frame
 	void Update () 
@@ -18,7 +19,10 @@ public class TextController : MonoBehaviour {
 		
 		print(myState);
 		//morning
-		if(myState==States.treehouse)
+		if(myState==States.start)
+		{start();}
+		
+		else if(myState==States.treehouse)
 		{treehouse();}
 		else if(myState==States.bushBreakfast)
 		{bushBreakfast();}
@@ -50,6 +54,14 @@ public class TextController : MonoBehaviour {
 		else if(myState==States.kitchenHelp)
 		{kitchenHelp();}
 	
+	}
+	
+	void start()
+	{
+		text.text="Welcome to this game\n"+
+			" When you are ready to begin please press return";
+		if (Input.GetKeyDown(KeyCode.Return)) 
+		{myState =States.treehouse;}
 	}
 	
 	void treehouse()
@@ -100,6 +112,7 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.L)) 
 		{myState =States.pushLazy;}
 	}
+	
 	void toLazyForStores()
 	{
 		text.text="You soon find out you have no choice in the matter, and mother is making"+
@@ -142,6 +155,7 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.C)) 
 		{myState =States.backAtTheLodge;}		
 	}
+	
 	void ignore()
 	{
 		text.text="After all the guests are done eating and have left you help packup the site and head back to"+
@@ -150,6 +164,7 @@ public class TextController : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.C)) 
 		{myState =States.backAtTheLodge;}	
 	}
+	
 	void backAtTheLodge()
 	{
 		text.text="After the busy moring you decide to head home for some watermelon, feel overworked"+
